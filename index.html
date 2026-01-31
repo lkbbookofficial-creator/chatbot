@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>AI Bot</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: white;
+    }
+    #chat {
+      height: 90vh;
+      overflow-y: auto;
+      padding: 10px;
+    }
+    input {
+      width: 80%;
+      padding: 10px;
+    }
+    button {
+      padding: 10px;
+      background: black;
+      color: white;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+<div id="chat"></div>
+
+<input id="msg" placeholder="Type your message">
+<button onclick="send()">Send</button>
+
+<script>
+async function send() {
+  const msg = document.getElementById("msg").value;
+  document.getElementById("chat").innerHTML += "<p><b>You:</b> " + msg + "</p>";
+
+  const API_KEY = "AIzaSyBiPir4TnW3zDhaWhUKUGg3NpDvu-pr-DA";
+
+fetch(
+  `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`,
+  {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      contents: [{ parts: [{ text: userMessage }] }]
+    })
+  }
+);
+
+}
+</script>
+
+</body>
+</html>
